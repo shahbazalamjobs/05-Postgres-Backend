@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Home Page </title>
+    <style>
+     /* Resetting default margin and padding for all elements */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Basic styling for the body */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Styling for the header */
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Styling for the content container */
+    .content {
+        margin: 20px auto;
+        width: 80%;
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Styling for the navigation links */
+    ul {
+        list-style-type: none;
+        margin-bottom: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Styling for forms */
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    </style>
+</head>
+<body>
+    
+    <h1> Home Page </h1>
+    <div class="content">
+        <ul>
+            <li><a href="http://localhost:3000/countries"> Countries </a></li>
+            <li><a href="http://localhost:3000/cities"> City </a></li>
+
+            <h1>Add Country</h1>
+            <form id="countryForm">
+                <label for="countryName">Country Name:</label>
+                <input type="text" id="countryName" name="name" required>
+                <label for="population">Population:</label>
+                <input type="number" id="population" name="population" required>
+                <label for="area">Area:</label>
+                <input type="number" id="area" name="area" required>
+                <button type="submit">Add Country</button>
+            </form>
+            
+
+        <h1>Add City</h1>
+        <form id="cityForm">
+            <label for="cityName">City Name:</label>
+            <input type="text" id="cityName" name="cityName" required>
+            <label for="countryId">Country ID:</label>
+            <input type="number" id="countryId" name="countryId" required>
+            <label for="cityPopulation">Population:</label>
+            <input type="text" id="cityPopulation" name="cityPopulation" required>
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" name="rating" required>
+            <button type="submit">Add City</button>
+        </form>
+            
+        </ul>
+    </div>
+    <!-- Include Axios library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('countryForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        console.log(data);
+        try {
+            const response = await axios.post('http://localhost:3000/countries', data);
+            console.log(response.data);
+            // You can handle the response data as needed, like showing a success message
+        } catch (error) {
+            console.error(error);
+            // Handle error
+        }
+    });
+
+
+        document.getElementById('cityForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            try {
+                const response = await axios.post('http://localhost:3000/cities', data);
+                console.log(response.data);
+                // You can handle the response data as needed, like showing a success message
+            } catch (error) {
+                console.error(error);
+                // Handle error
+            }
+        });
+    </script>
+
+</body>
+</html>
